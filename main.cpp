@@ -113,7 +113,7 @@ int main() {
 			//printPrimeFactorization(getPrimeFactorization(dataVector[i], tmpVector));
 
 			ofstream outFile;
- 			outFile.open("primeFactor.res");
+ 			outFile.open("primefactor.res");
 			vector<int> t = getPrimeFactorization(dataVector[i], tmpVector);
 			for (int z = 0; z < t.size(); z++) {
 				if (z!=0) {
