@@ -110,9 +110,18 @@ int main() {
 		} else {
 			cout << "The prime factorization is " << dataVector[i] << " = ";
 			vector<int> tmpVector;
-			printPrimeFactorization(getPrimeFactorization(dataVector[i], tmpVector));
-			cout << "\n";
+			//printPrimeFactorization(getPrimeFactorization(dataVector[i], tmpVector));
+
+			ofstream outFile;
+ 			outFile.open("primeFactor.res");
 			vector<int> t = getPrimeFactorization(dataVector[i], tmpVector);
+			for (int z = 0; z < t.size(); z++) {
+				if (z!=0) {
+					outFile << "*";
+				}
+				outFile << t[z];
+			}
+			outFile << "\n";
 		}
 	}
 }
