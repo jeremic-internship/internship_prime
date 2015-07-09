@@ -24,7 +24,7 @@ vector<int> getPrimeFactorization(int num, vector<int> startVector) {
 	vector<int> returnVector = startVector;
 	for (int i = 0; i < primes.size(); i++) {
 		if (num % primes[i] == 0) {
-			returnVector.push_back(num/primes[i]);
+			returnVector.push_back(primes[i]);
 			num = num/primes[i];
 			if (isPrime(num)) {
 				returnVector.push_back(num);
