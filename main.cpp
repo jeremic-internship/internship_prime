@@ -22,8 +22,9 @@ bool isPrime(int num) {
 
 vector<int> getPrimeFactorization(int num, vector<int> startVector) {
 	vector<int> returnVector = startVector;
+
 	for (int i = 0; i < primes.size(); i++) {
-		if (num % primes[i] == 0) {
+		if (num%primes[i]==0) {
 			returnVector.push_back(primes[i]);
 			num = num/primes[i];
 			if (isPrime(num)) {
@@ -34,7 +35,8 @@ vector<int> getPrimeFactorization(int num, vector<int> startVector) {
 			}
 		}
 	}
-	for (int i = 2; i <= (num-1); i++) {
+
+	for (int i = (num-1); i >= 2; i--) {
 		if (num%i == 0) {
 			returnVector.push_back(num/i);
 			num = i;
@@ -46,6 +48,43 @@ vector<int> getPrimeFactorization(int num, vector<int> startVector) {
 			}
 		}
 	}
+}
+
+void printPrimeFactorization(vector<int> primeNumbers) {
+	ofstream outFile;
+ 	outFile.open("primeFactor.res");
+	vector< vector<int> > numPower;
+	for(int i = 0; i < primeNumbers.size(); i++){
+		bool needToCreateVector = true;
+		for( int z = 0; z < numPower.size(); z++){
+			if(primeNumbers[i] == numPower[z][0]) {
+				numPower[z][1]++;
+				needToCreateVector = false;
+			}
+		}
+		if (needToCreateVector) {
+			vector<int> tmpVector;
+			tmpVector.push_back(primeNumbers[i]);
+			tmpVector.push_back(1);
+			numPower.push_back(tmpVector);
+		}
+	}
+
+	for (int i = 0; i < numPower.size(); i++) {
+		if (i != 0) {
+			cout << "*";
+			outFile << "*";
+		}
+		cout << numPower[i][0];
+		outFile << numPower[i][0];
+		if(numPower[i][1] != 1){
+			cout << "^" << numPower[i][1];
+			outFile << "^" << numPower[i][1];
+		}
+	}
+	cout << "\n";
+	outFile << "\n";
+	outFile.close();
 }
 
 int main() {
@@ -71,15 +110,9 @@ int main() {
 		} else {
 			cout << "The prime factorization is " << dataVector[i] << " = ";
 			vector<int> tmpVector;
-			vector<int> path = getPrimeFactorization(dataVector[i], tmpVector);
-			for(int z=0; z<path.size(); ++z) {
-				if (z != 0) {
-					cout << "*";
-				}
-				cout << path[z];
-			}
+			printPrimeFactorization(getPrimeFactorization(dataVector[i], tmpVector));
 			cout << "\n";
+			vector<int> t = getPrimeFactorization(dataVector[i], tmpVector);
 		}
 	}
-
 }
