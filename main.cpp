@@ -104,16 +104,18 @@ int main() {
 
 	dataVector.erase(dataVector.end() - 1); // Fix bug where EOF == 0
 
+	ofstream outFile;
+	outFile.open("primefactor.res");
+
+
 	for (int i = 0; i < dataVector.size(); i++) {
 		if (isPrime(dataVector[i])) {
-			printf("The given number %i is prime\n", dataVector[i]);
+			//printf("The given number %i is prime\n", dataVector[i]);
 		} else {
-			cout << "The prime factorization is " << dataVector[i] << " = ";
+			//cout << "The prime factorization is " << dataVector[i] << " = ";
 			vector<int> tmpVector;
 			//printPrimeFactorization(getPrimeFactorization(dataVector[i], tmpVector));
 
-			ofstream outFile;
- 			outFile.open("primefactor.res");
 			vector<int> t = getPrimeFactorization(dataVector[i], tmpVector);
 			for (int z = 0; z < t.size(); z++) {
 				if (z!=0) {
@@ -121,7 +123,10 @@ int main() {
 				}
 				outFile << t[z];
 			}
+			outFile << " = " << dataVector[i];
 			outFile << "\n";
+
 		}
 	}
+	outFile.close();
 }
